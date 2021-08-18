@@ -7,7 +7,31 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-class Window {
+class Time extends Login_get_set{
+	private Date date;
+	private SimpleDateFormat simpl;
+	public void setDate(){
+		date = new Date();
+		simpl =	new SimpleDateFormat("yyyy년 MM월 dd일 aa hh시 mm분 ss초");
+	}
+	public String getDate() {
+		return simpl.format(date);
+	}
+	public void ti() {
+		for(int i=0; i<10; i++) {
+			setDate();
+			System.out.println(getDate());
+		try {
+			Thread.sleep(1000);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		}
+		login();
+	}
+}
+
+class Win7 {
 	private HashMap map;
 	private ArrayList funcList;
 	public void function(String funcName){
@@ -40,10 +64,6 @@ class Window {
 			System.out.println("2.off");
 			System.out.print("입력 >>>> ");
 			sel = input.nextInt();
-			if(sel == 2) {
-				System.out.println("프로그램 종료!!!");
-				break;
-			}
 			switch(sel){
 				case 1:
 					list=getFuncList();
@@ -54,13 +74,16 @@ class Window {
 					funcName=input.next();
 					function(funcName);
 					break;
+				case 2:
+					System.out.println("프로그램 종료!!!");
+					return;
 			}
 		}
 	}
 	
 }
 
-class Login extends Window{
+class Login_get_set extends Win7{
 	private String saveId=null,savePw=null,id=null,pw=null;
 	public String getSaveId() {
 		return saveId;
@@ -115,17 +138,18 @@ class Login extends Window{
 		if(getSaveId().equals(id) && getSavePw().equals(pw)){
 			return 0;
 		}else {
-			return 1;		
+			return 1;
+			
 		}
 		}
 		return 1;
 	}
 }
-public class Quiz01 {
+public class Quiz02 {
 	public static void main(String[] args) {
-		Login lo = new Login();
-	//	Time ti = new Time();
-		lo.login();
-	//	ti.ti();
+	//	Login_get_set lo = new Login_get_set();
+		Time ti = new Time();
+	//	lo.login();
+		ti.ti();
 	}
 }
